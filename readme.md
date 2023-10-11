@@ -13,6 +13,14 @@ api, and shows the current weather for the specified city an - country.
 5. set the environment variables in the ".env" file. See the "example.env" file.
 6. run "python app/service.py"
 
+## run on docker.
+
+1. configure the .env file, see "example.env". Set your appId and ports. Set the host is optional.
+2. Run "docker-compose up".
+3. The app should run, if you're in a local environment, you can access to the endpoint, for example:
+
+http://localhost:8080/weather?city=bogota&country=co
+
 ## endpoints
 
 ### GET /weather?city=$City&country

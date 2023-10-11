@@ -76,7 +76,9 @@ app.cleanup_ctx.append(background_tasks)
 
 
 def run():
-    web.run_app(app, host=env['HOST'], port=env['PORT'])
+    host = env.get('HOST', None)
+    port = env.get('PORT', 8080)
+    web.run_app(app, host=host, port=port)
 
 
 if __name__ == '__main__':
