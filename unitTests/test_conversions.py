@@ -3,8 +3,8 @@
 
 import unittest
 
-from weather_project.app import conversions
-from weather_project.unitTests.data_tests.conversions_data import cardinal_tests, wind_scale_tests, cloud_scale_tests
+from app import conversions
+from unitTests.data_tests.conversions_data import cardinal_tests, wind_scale_tests, cloud_scale_tests
 
 
 class _TestConversionFunction(unittest.TestCase):

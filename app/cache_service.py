@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import asyncio
 import time
 
@@ -37,7 +40,7 @@ class Cache:
         for k in keys_to_remove:
             del self._cache[k]
 
-    async def _memory_task_cleaner(self, tick: int):
+    async def memory_task_cleaner(self, tick: int):
         while True:
             await asyncio.sleep(tick)
             self.clear_expired()

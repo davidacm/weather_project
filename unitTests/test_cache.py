@@ -3,7 +3,7 @@
 
 import unittest
 
-from weather_project.app import cache_service
+from app import cache_service
 
 
 class FakeTime:
@@ -12,6 +12,7 @@ class FakeTime:
 
     def time(self):
         return self.cur_time
+
 
 time = FakeTime()
 cache_service.time = time

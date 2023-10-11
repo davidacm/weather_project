@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from weather_project.app.conversions import QUADRANTS
+from app.conversions import QUADRANTS
 
 # Test data for cardinals degrees boundaries.
 # 3 test per quadrant. boundaries and center, with max two decimals.

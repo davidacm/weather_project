@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import asyncio
 import os
 
 from aiohttp import web
@@ -7,7 +11,7 @@ from os import environ as env
 from dotenv import load_dotenv
 load_dotenv()
 
-from weather_project.app import process_data, cache_service
+from . import process_data, cache_service
 
 cache = cache_service.Cache(120)
 
@@ -62,5 +66,19 @@ async def handle_weather(request: web.Request) -> web.json_response:
 app = web.Application()
 app.router.add_get('/weather', handle_weather)
 
-if __name__ == '__main__':
+
+async def background_tasks(app):
+    app['memory_cleaner'] = asyncio.create_task(cache.memory_task_cleaner(120))
+    yield
+    app['memory_cleaner'].cancel()
+    await app['memory_cleaner']
+app.cleanup_ctx.append(background_tasks)
+
+
+def run():
     web.run_app(app, host=env['HOST'], port=env['PORT'])
+
+
+if __name__ == '__main__':
+    run()
+
