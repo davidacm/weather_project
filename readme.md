@@ -4,14 +4,6 @@ This small application gets the weather info from
 [open weather map](https://openweathermap.org/)
 api, and shows the current weather for the specified city an - country.
 
-## How to run locally?
-
-1. Install python, this was tried with python 3.11.
-2. Open the console, and Create a virtual environment: "python -m venv {your_folder}"
-3. Go to the new environment and run: Scripts/activate
-4. Go to the folder of this project and install the modules: "pip install -r r_dev.txt"
-5. set the environment variables in the ".env" file. See the "example.env" file.
-6. run "python app/service.py"
 
 ## run on docker.
 
@@ -20,6 +12,23 @@ api, and shows the current weather for the specified city an - country.
 3. The app should run, if you're in a local environment, you can access to the endpoint, for example:
 
 http://localhost:8080/weather?city=bogota&country=co
+
+## How to run locally?
+
+1. Install python, this was tried with python 3.11.
+2. Open the console, and Create a virtual environment: "python -m venv {your_folder}"
+3. Go to the new environment and run: Scripts/activate
+4. Go to the folder of this project and install the modules: "pip install -r r_dev.txt"
+5. set the environment variables in the ".env" file. See the "example.env" file.
+6. run "python run.py"
+
+### (Optional) running with flask.
+
+this was added to be executed in pythonanywhere, seems that pythonanywhere sopports wsgi based frameworks only and have templates for flask.
+
+Do the previous steps, except the last step. Do the following instead:
+1. "pip install flask". Flask is not included in the requirement files.
+2. "python run_flask.py"
 
 ## endpoints
 

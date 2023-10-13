@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import asyncio
+import threading
 import time
+
 
 class Cache:
     """a very basic cache implementation, you can use this to avoid frequent calls to an api.
 
     this is a temporal implementation, you can overwrite this with a specific service for better performance.
-    todo: an interval method to remove expired keys.
     """
     
     def __init__(self, expiration: int):
@@ -18,6 +19,7 @@ class Cache:
         """
         self.expiration = expiration
         self._cache = {}
+        self.clean_is_running = False
 
     def set(self, key, value):
         self._cache[key] = (time.time(), value)
@@ -41,6 +43,30 @@ class Cache:
             del self._cache[k]
 
     async def memory_task_cleaner(self, tick: int):
+        """if this function is started, this method will clear the old keys each tick seconds. It's executed using asyncio.
+
+        Args:
+            tick (int): execution interval, in seconds.
+        """
+        if self.clean_is_running:
+            return
+        self.clean_is_running = True
         while True:
             await asyncio.sleep(tick)
             self.clear_expired()
+
+    def thread_memory_task_cleaner(self, tick: int):
+        """this method is intended to be used as a background thread, to clean the memory, without using asyncio but threads.
+        Args:
+            tick (int): time interval, in seconds.
+        """
+        if self.clean_is_running == True:
+            return
+        def background():
+            self.clean_is_running = True
+            while True:
+                time.sleep(tick)
+                self.clear_expired()
+        bg = threading.Thread(target=background)
+        bg.daemon = True
+        bg.start()
